@@ -18,6 +18,7 @@ public class Resposta {
     //commit
     private int contRespostaCerta;
     private int contRespostaErrada;
+    private int variavel;
 
     public Resposta(Questao questao) {
         questao.getAlternativas();
