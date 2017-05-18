@@ -1,10 +1,10 @@
 package br.cefetmg.dominio;
 
-public class Forum {//Comentario
+public class Forum {
     private static long idComentario;
     private String comentario;
     private static long like;
-    private int teste;
+ 
     public Forum() {}
 
     public Forum(String comentario) {
