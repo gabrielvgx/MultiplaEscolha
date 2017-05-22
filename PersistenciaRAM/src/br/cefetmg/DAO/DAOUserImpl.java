@@ -6,11 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class DAOUserImpl implements UsuarioDAO {
+public class UsuarioDAOImpl implements UsuarioDAO {
 
     private final Map<Long, Usuario> objetos;
 
-    public DAOUserImpl() {
+    public UsuarioDAOImpl() {
         objetos = new LinkedHashMap<>();
     }
 
