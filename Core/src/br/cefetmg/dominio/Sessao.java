@@ -1,6 +1,7 @@
 package br.cefetmg.dominio;
 
 import br.cefetmg.exception.ExcecaoNegocio;
+import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -58,12 +59,46 @@ public class Sessao {
         }
     }
 
-    public void questaoRespondida(Questao questao, String resposta) throws ExcecaoNegocio {
+    public void questaoRespondida(Questao questao, String resposta) throws ExcecaoNegocio, ExcecaoPersistencia {
+        if (questao == null) {
+            throw new ExcecaoNegocio("Questao não pode ser null");
+        }
+        if (resposta.isEmpty()) {
+            throw new ExcecaoNegocio("Resposta não pode ser vazio");
+        }
+        if (questao.getTipoQuestao() == null) {
+            throw new ExcecaoPersistencia("Tipo da Questao não pode ser null");
+        }
+        switch (questao.getTipoQuestao()) {
+            case "VF":
+                char[] respostaVF = resposta.toCharArray();
+                for (int i = 0; i < respostaVF.length; i++) {
+                    if (Character.toUpperCase(respostaVF[i]) != 'V' && Character.toUpperCase(respostaVF[i]) != 'F') {
+                        throw new ExcecaoPersistencia("Padrao de Respostas Errado");
+                    }
+                }
+                break;
+            case "aberta":
+                break;
+            case "fechada":
+                if(!questao.getAlternativas().get(resposta)){
+                    throw new ExcecaoPersistencia("A resposta não é uma das alternativas");
+                }
+                break;
+            default:
+                throw new ExcecaoPersistencia("Tipo de Questao Invalido");
+        }
+        char[] respostaVF = resposta.toCharArray();
+        for (int i = 0; i < respostaVF.length; i++) {
+            if (Character.toUpperCase(respostaVF[i]) != 'V' && Character.toUpperCase(respostaVF[i]) != 'F') {
+                throw new ExcecaoPersistencia("Padrao de Respostas Errado");
+            }
+        }
         if (usuarioLogado instanceof Anonimo) {
             if (limiteQuestoes <= 10) {
                 contabilizaQuestaoRespondida(questao, resposta);
             } else {
-                throw new ExcecaoNegocio("Numero maximo de questoes respondidas para esse perfil de Usuario!");
+                throw new ExcecaoNegocio("");
 
             }
         } else {
