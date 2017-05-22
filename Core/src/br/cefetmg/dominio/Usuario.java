@@ -2,33 +2,28 @@ package br.cefetmg.dominio;
 
 import java.util.Map;
 
-public class Usuario {
+public class Usuario extends Pessoa {
 
     private Long idUsuario;
-    private String primeiroNome;
-    private String ultimoNome;
+    private String login;
     private String senha;
-    private String email;
-    private String telefone;
-    private int tipo;
 
-    public Usuario(Long id, String primeiroNome, String ultimoNome, String senha, String email, String telefone) {
+    public Usuario(){}
+    public Usuario(Long id, String primeiroNome, String ultimoNome, int idade, char sexo, String email, String telefone, String login, String senha) {
+        super(primeiroNome, ultimoNome, idade, sexo, email, telefone);
         this.idUsuario = id;
-        this.primeiroNome = primeiroNome;
-        this.ultimoNome = ultimoNome;
+        this.login = login;
         this.senha = senha;
-        this.email = email;
-        this.telefone = telefone;
+    }    
+    public Usuario(Long idUsuario, String login, String senha){
+        this.idUsuario = idUsuario;
+        this.login = login;
+        this.senha = senha;
     }
-
-    public Usuario() {
-    }
-
     public Usuario(long id) {
         this.idUsuario = id;
 
     }
-
     public <K, V> Usuario(Map<K, V> atributos) {
 
         int nAtributos = this.getClass().getDeclaredFields().length - 1;
@@ -50,6 +45,24 @@ public class Usuario {
         }
     }
 
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+
+
     public Long getId() {
         return idUsuario;
     }
@@ -58,51 +71,11 @@ public class Usuario {
         this.idUsuario = id;
     }
 
-    public String getPrimeiroNome() {
-        return primeiroNome;
-    }
-
-    public void setPrimeiroNome(String primeiroNome) {
-        this.primeiroNome = primeiroNome;
-    }
-
-    public String getUltimoNome() {
-        return ultimoNome;
-    }
-
-    public void setUltimoNome(String ultimoNome) {
-        this.ultimoNome = ultimoNome;
-    }
-
     public String getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
     }
 }

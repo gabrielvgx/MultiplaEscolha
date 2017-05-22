@@ -5,28 +5,32 @@ import java.util.Map;
 
 public class Questao {
 //Teste de versionamento
+
     private Long idQuestao;
     private ArrayList<String> enunciado;
     private Map<String, Boolean> alternativas;
     private ArrayList<String> pathImagens;
-
-    public Questao() {}
-
-    public Questao(Long id) {
-        this.idQuestao = id;
+    private String tipoQuestao;
+    public Questao() {
     }
 
-    public Questao(Long id, ArrayList<String> enunciado, Map<String, Boolean> alternativas, ArrayList<String> pathImagens) {
-        this.idQuestao = id;
+    public Questao(Long idQuestao) {
+        this.idQuestao = idQuestao;
+    }
+
+    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, ArrayList<String> pathImagens) {
+        this.idQuestao = idQuestao;
         this.enunciado = enunciado;
         this.alternativas = alternativas;
+        this.tipoQuestao = tipoQuestao;
         this.pathImagens = pathImagens;
     }
 
-    public Questao(Long id, ArrayList<String> enunciado, Map<String, Boolean> alternativas) {
-        this.idQuestao = id;
+    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao) {
+        this.idQuestao = idQuestao;
         this.enunciado = enunciado;
         this.alternativas = alternativas;
+        this.tipoQuestao = tipoQuestao;
     }
 
     public <K, V> Questao(Map<K, V> atributos) {
@@ -41,6 +45,10 @@ public class Questao {
             } catch (IllegalArgumentException | IllegalAccessException ex) {
             }
         }
+    }
+
+    public void mostrarAtributos() {
+        int nAtributos = this.getClass().getDeclaredFields().length - 1;
         for (int i = 0; i <= nAtributos; i++) {
             String nomeAtributo = this.getClass().getDeclaredFields()[i].getName();
             try {
@@ -48,6 +56,7 @@ public class Questao {
             } catch (SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             }
         }
+
     }
 
     public Long getIdQuestao() {
@@ -80,6 +89,14 @@ public class Questao {
 
     public void setPathImagens(ArrayList<String> pathImagens) {
         this.pathImagens = pathImagens;
+    }
+
+    public String getTipoQuestao() {
+        return tipoQuestao;
+    }
+
+    public void setTipoQuestao(String tipoQuestao) {
+        this.tipoQuestao = tipoQuestao;
     }
 
 }
