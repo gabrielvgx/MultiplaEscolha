@@ -2,8 +2,6 @@ package br.cefetmg.servico;
 
 import br.cefetmg.DAO.UsuarioDAO;
 import br.cefetmg.dominio.Usuario;
-import br.cefetmg.dominio.Questao;
-import br.cefetmg.dominio.Resposta;
 import java.util.List;
 
 public class implementacaoUsuarioDAO implements UsuarioDAO{
