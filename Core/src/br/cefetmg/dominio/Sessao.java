@@ -63,7 +63,7 @@ public class Sessao {
             if (limiteQuestoes <= 10) {
                 contabilizaQuestaoRespondida(questao, resposta);
             } else {
-                throw new ExcecaoNegocio();
+                throw new ExcecaoNegocio("Numero maximo de questoes respondidas para esse perfil de Usuario!");
 
             }
         } else {
