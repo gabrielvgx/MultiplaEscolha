@@ -28,7 +28,7 @@ public class Sessao {
         }
     }
 
-    public void contabilizaQuestaoRespondida(Questao questaoRespondida, String resposta) {
+    private void contabilizaQuestaoRespondida(Questao questaoRespondida, String resposta) {
         questoesRespondidas.put(questaoRespondida, resposta);
 
         switch (questaoRespondida.getTipoQuestao()) {
@@ -61,10 +61,10 @@ public class Sessao {
 
     public void questaoRespondida(Questao questao, String resposta) throws ExcecaoNegocio, ExcecaoPersistencia {
         if (questao == null) {
-            throw new ExcecaoNegocio("Questao não pode ser null");
+            throw new ExcecaoPersistencia("Questao não pode ser null");
         }
         if (resposta.isEmpty()) {
-            throw new ExcecaoNegocio("Resposta não pode ser vazio");
+            throw new ExcecaoPersistencia("Resposta não pode ser vazio");
         }
         if (questao.getTipoQuestao() == null) {
             throw new ExcecaoPersistencia("Tipo da Questao não pode ser null");
@@ -81,7 +81,10 @@ public class Sessao {
             case "aberta":
                 break;
             case "fechada":
-                if(!questao.getAlternativas().get(resposta)){
+                if(questao.getAlternativas() == null){
+                    throw new ExcecaoPersistencia("Não há alternativas");
+                }
+                if(!questao.getAlternativas().containsKey(resposta)){
                     throw new ExcecaoPersistencia("A resposta não é uma das alternativas");
                 }
                 break;
@@ -98,7 +101,7 @@ public class Sessao {
             if (limiteQuestoes <= 10) {
                 contabilizaQuestaoRespondida(questao, resposta);
             } else {
-                throw new ExcecaoNegocio("");
+                throw new ExcecaoNegocio("Limite de questoes para esse perfil de Usuario alcançado");
 
             }
         } else {
