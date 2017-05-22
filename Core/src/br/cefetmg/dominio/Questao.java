@@ -1,9 +1,11 @@
 package br.cefetmg.dominio;
 
+import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
-public class Questao {
+public class Questao{
 //Teste de versionamento
 
     private Long idQuestao;
@@ -11,26 +13,38 @@ public class Questao {
     private Map<String, Boolean> alternativas;
     private ArrayList<String> pathImagens;
     private String tipoQuestao;
-    public Questao() {
-    }
 
+    public Questao()  {
+    }
+    public void validaAlternativas() throws ExcecaoPersistencia{
+        if (!alternativas.isEmpty()) {
+            if (!alternativas.values().contains(true)) {
+                throw new ExcecaoPersistencia("Não há alternativa correta");
+            }
+            if(Collections.frequency(alternativas.values(), true) > 1){
+                throw new ExcecaoPersistencia("Há mais de uma alternativa correta");
+            }
+        }
+    }
     public Questao(Long idQuestao) {
         this.idQuestao = idQuestao;
     }
 
-    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, ArrayList<String> pathImagens) {
+    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
         this.idQuestao = idQuestao;
         this.enunciado = enunciado;
         this.alternativas = alternativas;
         this.tipoQuestao = tipoQuestao;
         this.pathImagens = pathImagens;
+        validaAlternativas();
     }
 
-    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao) {
+    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao) throws ExcecaoPersistencia {
         this.idQuestao = idQuestao;
         this.enunciado = enunciado;
         this.alternativas = alternativas;
         this.tipoQuestao = tipoQuestao;
+        validaAlternativas();
     }
 
     public <K, V> Questao(Map<K, V> atributos) {
@@ -79,8 +93,9 @@ public class Questao {
         return alternativas;
     }
 
-    public void setAlternativas(Map<String, Boolean> alternativas) {
+    public void setAlternativas(Map<String, Boolean> alternativas) throws ExcecaoPersistencia {
         this.alternativas = alternativas;
+        validaAlternativas();
     }
 
     public ArrayList<String> getPathImagens() {
