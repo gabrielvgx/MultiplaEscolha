@@ -8,13 +8,14 @@ import java.util.Map;
 public class Questao{
 //Teste de versionamento
 
-    private Long idQuestao;
+    private static long idQuestao = 0;
     private ArrayList<String> enunciado;
     private Map<String, Boolean> alternativas;
     private ArrayList<String> pathImagens;
     private String tipoQuestao;
 
     public Questao()  {
+        idQuestao++;
     }
     public void validaAlternativas() throws ExcecaoPersistencia{
         if (!alternativas.isEmpty()) {
@@ -26,12 +27,9 @@ public class Questao{
             }
         }
     }
-    public Questao(Long idQuestao) {
-        this.idQuestao = idQuestao;
-    }
 
-    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
-        this.idQuestao = idQuestao;
+    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
+       
         this.enunciado = enunciado;
         this.alternativas = alternativas;
         this.tipoQuestao = tipoQuestao;
@@ -39,8 +37,8 @@ public class Questao{
         validaAlternativas();
     }
 
-    public Questao(Long idQuestao, ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao) throws ExcecaoPersistencia {
-        this.idQuestao = idQuestao;
+    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao) throws ExcecaoPersistencia {
+        
         this.enunciado = enunciado;
         this.alternativas = alternativas;
         this.tipoQuestao = tipoQuestao;
@@ -75,10 +73,6 @@ public class Questao{
 
     public Long getIdQuestao() {
         return idQuestao;
-    }
-
-    public void setIdQuestao(Long idQuestao) {
-        this.idQuestao = idQuestao;
     }
 
     public ArrayList<String> getEnunciado() {

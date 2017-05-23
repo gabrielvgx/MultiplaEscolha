@@ -15,6 +15,7 @@ public class Sessao {
     private int numeroAcertosVF;
     private int numeroAcertosFechada;
     private int limiteQuestoes;
+    private int totalRespostas;
 
     public Sessao() {
         questoesRespondidas = new LinkedHashMap<>();
@@ -30,7 +31,7 @@ public class Sessao {
 
     private void contabilizaQuestaoRespondida(Questao questaoRespondida, String resposta) {
         questoesRespondidas.put(questaoRespondida, resposta);
-
+       
         switch (questaoRespondida.getTipoQuestao()) {
             case "VF":
                 char[] gabaritoSeparado = resposta.toCharArray();
@@ -69,6 +70,7 @@ public class Sessao {
         if (questao.getTipoQuestao() == null) {
             throw new ExcecaoPersistencia("Tipo da Questao não pode ser null");
         }
+         totalRespostas++;
         switch (questao.getTipoQuestao()) {
             case "VF":
                 char[] respostaVF = resposta.toCharArray();
@@ -91,14 +93,9 @@ public class Sessao {
             default:
                 throw new ExcecaoPersistencia("Tipo de Questao Invalido");
         }
-        char[] respostaVF = resposta.toCharArray();
-        for (int i = 0; i < respostaVF.length; i++) {
-            if (Character.toUpperCase(respostaVF[i]) != 'V' && Character.toUpperCase(respostaVF[i]) != 'F') {
-                throw new ExcecaoPersistencia("Padrao de Respostas Errado");
-            }
-        }
+        System.out.println("PQP");
         if (usuarioLogado instanceof Anonimo) {
-            if (limiteQuestoes <= 10) {
+            if (totalRespostas <= limiteQuestoes) {
                 contabilizaQuestaoRespondida(questao, resposta);
             } else {
                 throw new ExcecaoNegocio("Limite de questoes para esse perfil de Usuario alcançado");
