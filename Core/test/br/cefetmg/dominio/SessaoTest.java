@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import br.cefetmg.dominio.Usuario;
+import br.cefetmg.exception.ExcecaoNegocio;
 
 /**
  *
@@ -208,13 +209,13 @@ public class SessaoTest {
             Questao questao = new Questao();
             questao.setTipoQuestao("fechada");
             questao.setAlternativas(alternativasTeste);
-            for (int i = 0; i < 11; i++) {
+            Sessao instance = new Sessao(anonimo);
+            for (int i = 0; i < 12; i++) {
                 String resposta = "op1";
-                Sessao instance = new Sessao(anonimo);
                 instance.questaoRespondida(questao, resposta);
             }
 
-        } catch (Exception e) {
+        } catch (ExcecaoNegocio e) {
             return;
         }
         fail("O limite de usuario nao logado nao esta sendo respeitado");
