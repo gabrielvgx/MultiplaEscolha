@@ -15,6 +15,7 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import br.cefetmg.dominio.Usuario;
 
 /**
  *
@@ -52,11 +53,12 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
         fail("A função aceitou null como questao");
     }
+
     @Test
     public void testQuestaoRespondida2() throws Exception {
         System.out.println("questaoRespondida");
@@ -65,11 +67,12 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
         fail("A função aceitou vazio como resposta");
     }
+
     @Test
     public void testQuestaoRespondida3() throws Exception {
         System.out.println("questaoRespondida");
@@ -78,11 +81,12 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
         fail("A função aceitou questao sem tipo");
     }
+
     @Test
     public void testQuestaoRespondida4() throws Exception {
         System.out.println("questaoRespondida");
@@ -92,12 +96,13 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
-        
+
         fail("A função aceitou resposta de questao V ou F sem ser V ou F");
     }
+
     @Test
     public void testQuestaoRespondida5() throws Exception {
         System.out.println("questaoRespondida");
@@ -107,12 +112,13 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
-        
+
         fail("A função aceitou um tipo inválido para Questao");
     }
+
     @Test
     public void testQuestaoRespondida6() throws Exception {
         System.out.println("questaoRespondida");
@@ -122,16 +128,16 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
-        
+
         fail("A função aceitou uma resposta de questao fechada, sem ter as alternativas");
     }
-    
+
     @Test
     public void testQuestaoRespondida7() throws Exception {
-        Map<String,Boolean> alternativasTeste = new LinkedHashMap<>();
+        Map<String, Boolean> alternativasTeste = new LinkedHashMap<>();
         alternativasTeste.put("op1", false);
         alternativasTeste.put("op2", false);
         alternativasTeste.put("op3", false);
@@ -144,15 +150,16 @@ public class SessaoTest {
         Sessao instance = new Sessao();
         try {
             instance.questaoRespondida(questao, resposta);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
-        
+
         fail("A função aceitou uma resposta de questao fechada que não é uma alternativa");
     }
+
     @Test
     public void testQuestaoRespondida8() throws Exception {
-        Map<String,Boolean> alternativasTeste = new LinkedHashMap<>();
+        Map<String, Boolean> alternativasTeste = new LinkedHashMap<>();
         alternativasTeste.put("op1", false);
         alternativasTeste.put("op2", false);
         alternativasTeste.put("op3", false);
@@ -162,15 +169,16 @@ public class SessaoTest {
         questao.setTipoQuestao("fechada");
         try {
             questao.setAlternativas(alternativasTeste);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
-        
+
         fail("A função aceitou uma questao sem alternativa correta");
     }
+
     @Test
     public void testQuestaoRespondida9() throws Exception {
-        Map<String,Boolean> alternativasTeste = new LinkedHashMap<>();
+        Map<String, Boolean> alternativasTeste = new LinkedHashMap<>();
         alternativasTeste.put("op1", false);
         alternativasTeste.put("op2", false);
         alternativasTeste.put("op3", true);
@@ -180,11 +188,36 @@ public class SessaoTest {
         questao.setTipoQuestao("fechada");
         try {
             questao.setAlternativas(alternativasTeste);
-        }catch(ExcecaoPersistencia e){
+        } catch (ExcecaoPersistencia e) {
             return;
         }
-        
+
         fail("A função aceitou uma questao com mais de uma alternativa correta");
+    }
+@Test
+    public void testQuestaoRespondida10() throws Exception {
+        System.out.println("setUsuarioLogado");
+        Anonimo anonimo = new Anonimo();
+        try {
+            Map<String, Boolean> alternativasTeste = new LinkedHashMap<>();
+            alternativasTeste.put("op1", false);
+            alternativasTeste.put("op2", false);
+            alternativasTeste.put("op3", false);
+            alternativasTeste.put("op4", true);
+            System.out.println("questaoRespondida");
+            Questao questao = new Questao();
+            questao.setTipoQuestao("fechada");
+            questao.setAlternativas(alternativasTeste);
+            for (int i = 0; i < 11; i++) {
+                String resposta = "op1";
+                Sessao instance = new Sessao(anonimo);
+                instance.questaoRespondida(questao, resposta);
+            }
+
+        } catch (Exception e) {
+            return;
+        }
+        fail("O limite de usuario nao logado nao esta sendo respeitado");
     }
 
     /**
@@ -205,13 +238,9 @@ public class SessaoTest {
      * Test of setUsuarioLogado method, of class Sessao.
      */
     @Test
-    public void testSetUsuarioLogado() {
-        System.out.println("setUsuarioLogado");
-        Usuario usuarioLogado = null;
-        Sessao instance = new Sessao();
-        instance.setUsuarioLogado(usuarioLogado);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testSetUsuarioLogado() throws ExcecaoPersistencia {
+        fail("default");
+
     }
 
     /**
