@@ -17,7 +17,7 @@ public class Questao {
     private String dominio;
     private String modulo;
     private int nivelDificiculdade;
-    private Map<Integer,String> niveisDificuldade;
+    private static Map<Integer,String> niveisDificuldade;
 
 
     public Questao() {
