@@ -4,18 +4,18 @@ import java.util.Map;
 
 public class Usuario extends Pessoa {
 
-    private Long idUsuario;
+    private long idUsuario;
     private String login;
     private String senha;
 
     public Usuario(){}
-    public Usuario(Long id, String primeiroNome, String ultimoNome, int idade, char sexo, String email, String telefone, String login, String senha) {
+    public Usuario(long id, String primeiroNome, String ultimoNome, int idade, char sexo, String email, String telefone, String login, String senha) {
         super(primeiroNome, ultimoNome, idade, sexo, email, telefone);
         this.idUsuario = id;
         this.login = login;
         this.senha = senha;
     }    
-    public Usuario(Long idUsuario, String login, String senha){
+    public Usuario(long idUsuario, String login, String senha){
         this.idUsuario = idUsuario;
         this.login = login;
         this.senha = senha;
@@ -45,11 +45,11 @@ public class Usuario extends Pessoa {
         }
     }
 
-    public Long getIdUsuario() {
+    public long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Long idUsuario) {
+    public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
@@ -63,11 +63,11 @@ public class Usuario extends Pessoa {
 
 
 
-    public Long getId() {
+    public long getId() {
         return idUsuario;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.idUsuario = id;
     }
 

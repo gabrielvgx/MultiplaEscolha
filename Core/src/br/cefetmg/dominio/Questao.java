@@ -3,45 +3,41 @@ package br.cefetmg.dominio;
 import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Questao{
-//Teste de versionamento
+public class Questao {
 
     private static long idQuestao = 0;
     private ArrayList<String> enunciado;
     private Map<String, Boolean> alternativas;
     private ArrayList<String> pathImagens;
     private String tipoQuestao;
+    private boolean visibilidade = true;
+    private String dominio;
+    private String modulo;
+    private int nivelDificiculdade;
+    private Map<Integer,String> niveisDificuldade;
 
-    public Questao()  {
+
+    public Questao() {
+        
+        niveisDificuldade = new LinkedHashMap<>();
+        niveisDificuldade.put(1, "facil");
+        niveisDificuldade.put(1, "moderado");
+        niveisDificuldade.put(1, "dificil");
+        niveisDificuldade.put(1, "desafio");
         idQuestao++;
     }
-    public void validaAlternativas() throws ExcecaoPersistencia{
-        if (!alternativas.isEmpty()) {
-            if (!alternativas.values().contains(true)) {
-                throw new ExcecaoPersistencia("Não há alternativa correta");
-            }
-            if(Collections.frequency(alternativas.values(), true) > 1){
-                throw new ExcecaoPersistencia("Há mais de uma alternativa correta");
-            }
-        }
-    }
+    
+    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, String dominio, String modulo, Map<Integer,String> niveisDificuldade) throws ExcecaoPersistencia {
 
-    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
-       
         this.enunciado = enunciado;
         this.alternativas = alternativas;
         this.tipoQuestao = tipoQuestao;
-        this.pathImagens = pathImagens;
-        validaAlternativas();
-    }
-
-    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao) throws ExcecaoPersistencia {
-        
-        this.enunciado = enunciado;
-        this.alternativas = alternativas;
-        this.tipoQuestao = tipoQuestao;
+        this.dominio = dominio;
+        this.modulo = modulo;
+        this.niveisDificuldade = niveisDificuldade;
         validaAlternativas();
     }
 
@@ -58,6 +54,40 @@ public class Questao{
             }
         }
     }
+    
+    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, String dominio, String modulo, Map<Integer,String> niveisDificuldade, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
+
+        this.enunciado = enunciado;
+        this.alternativas = alternativas;
+        this.tipoQuestao = tipoQuestao;
+        this.dominio = dominio;
+        this.modulo = modulo;
+        this.niveisDificuldade = niveisDificuldade;
+        this.pathImagens = pathImagens;
+        validaAlternativas();
+    }
+
+    public String getDominio() {
+        return dominio;
+    }
+
+    public void setDominio(String dominio) {
+        this.dominio = dominio;
+    }
+    
+
+    public void validaAlternativas() throws ExcecaoPersistencia {
+        if (!alternativas.isEmpty()) {
+            if (!alternativas.values().contains(true)) {
+                throw new ExcecaoPersistencia("Não há alternativa correta");
+            }
+            if (Collections.frequency(alternativas.values(), true) > 1) {
+                throw new ExcecaoPersistencia("Há mais de uma alternativa correta");
+            }
+        }
+    }
+
+
 
     public void mostrarAtributos() {
         int nAtributos = this.getClass().getDeclaredFields().length - 1;
@@ -71,7 +101,7 @@ public class Questao{
 
     }
 
-    public Long getIdQuestao() {
+    public long getIdQuestao() {
         return idQuestao;
     }
 
@@ -108,4 +138,38 @@ public class Questao{
         this.tipoQuestao = tipoQuestao;
     }
 
+    public static void setIdQuestao(long idQuestao) {
+        Questao.idQuestao = idQuestao;
+    }
+
+    public boolean isVisibilidade() {
+        return visibilidade;
+    }
+
+    public void setVisibilidade(boolean visibilidade) {
+        this.visibilidade = visibilidade;
+    }
+
+    public String getModulo() {
+        return modulo;
+    }
+
+    public void setModulo(String modulo) {
+        this.modulo = modulo;
+    }
+    public int getNivelDificiculdade() {
+        return nivelDificiculdade;
+    }
+
+    public void setNivelDificiculdade(int nivelDificiculdade) {
+        this.nivelDificiculdade = nivelDificiculdade;
+    }
+
+    public Map<Integer, String> getNiveisDificuldade() {
+        return niveisDificuldade;
+    }
+
+    public void setNiveisDificuldade(Map<Integer, String> niveisDificuldade) {
+        this.niveisDificuldade = niveisDificuldade;
+    }
 }
