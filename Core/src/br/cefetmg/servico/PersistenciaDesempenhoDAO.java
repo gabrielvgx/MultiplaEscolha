@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface PersistenciaDesempenhoDAO {
     public void inserirDesempenho(int acertos, int tentativas) throws ExcecaoNegocio;
-    public Map <Long, ArrayList> consultarDesempenho() throws ExcecaoPersistencia;
+    public double consultarDesempenho(long idDesempenho) throws ExcecaoPersistencia;
 }
