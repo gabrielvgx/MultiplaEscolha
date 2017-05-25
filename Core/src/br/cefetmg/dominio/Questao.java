@@ -24,9 +24,9 @@ public class Questao {
         
         niveisDificuldade = new LinkedHashMap<>();
         niveisDificuldade.put(1, "facil");
-        niveisDificuldade.put(1, "moderado");
-        niveisDificuldade.put(1, "dificil");
-        niveisDificuldade.put(1, "desafio");
+        niveisDificuldade.put(2, "moderado");
+        niveisDificuldade.put(3, "dificil");
+        niveisDificuldade.put(4, "desafio");
         idQuestao++;
     }
     
