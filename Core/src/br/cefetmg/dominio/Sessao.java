@@ -112,13 +112,10 @@ public class Sessao implements Desempenho {
             throw new ExcecaoNegocio ("Usuario nao possui permissao para gerar "
                     + "desempenho");
         
-        if (totalRespostas == 0 && acerto > 0) {
-            throw new ExcecaoNegocio("O desempenho depende do numero de "
-                    + "tentativas e nao ha como ter acerto sem tentativas");
-        }
         if (totalRespostas > 0) {
             desempenho = (acerto * 100) / totalRespostas;
-        }
+        } else 
+            desempenho = 0;
         
     }
 
