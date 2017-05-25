@@ -17,6 +17,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import br.cefetmg.dominio.Usuario;
 import br.cefetmg.exception.ExcecaoNegocio;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -45,29 +47,8 @@ public class SessaoTest {
 
     
     @Test 
-    public void testGeraDesempenho () throws ExcecaoPersistencia  {
+    public void testGeraDesempenho () throws ExcecaoPersistencia, ExcecaoNegocio  {
         Sessao sessao = new Sessao(new Anonimo ());
-        Map<String, Boolean> alternativasTeste = new LinkedHashMap<>();
-        alternativasTeste.put("op1", false);
-        alternativasTeste.put("op2", false);
-        alternativasTeste.put("op3", false);
-        alternativasTeste.put("op4", true);
-        System.out.println("questaoRespondida");
-        Questao questao = new Questao();
-        questao.setTipoQuestao("fechada");
-        questao.setAlternativas(alternativasTeste);
-        String resposta = "op4";
-        try  {
-            sessao.geraDesempenho();
-        }catch (ExcecaoNegocio e){
-            return;
-        }
-        fail ("Aceitou todos os usuarios");
-    }
-
-    @Test 
-    public void testGeraDesempenho1 () throws ExcecaoPersistencia, ExcecaoNegocio  {
-        Sessao sessao = new Sessao(new Usuario ());
         Map<String, Boolean> alternativasTeste = new LinkedHashMap<>();
         alternativasTeste.put("op1", false);
         alternativasTeste.put("op2", false);
