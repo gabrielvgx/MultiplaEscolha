@@ -1,13 +1,13 @@
 package br.cefetmg.dominio;
 
-import br.cefetmg.dominio.Desempenho;
+
 import br.cefetmg.exception.ExcecaoNegocio;
 import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Sessao implements Desempenho {
+public class Sessao {
 
     private Usuario usuarioLogado;
     private Map<Questao, String> questoesRespondidas;
@@ -18,7 +18,6 @@ public class Sessao implements Desempenho {
     private int limiteQuestoes;
     private int totalRespostas;
     private int acerto;
-    private int desempenho;
 
     public Sessao(Usuario usuarioLogado) {
         acerto = numeroAcertosVF + numeroAcertosFechada;
@@ -113,9 +112,9 @@ public class Sessao implements Desempenho {
                     + "desempenho");
         
         if (totalRespostas > 0) {
-            desempenho = (acerto * 100) / totalRespostas;
+            usuarioLogado.setDesempenho((acerto * 100) / totalRespostas);
         } else 
-            desempenho = 0;
+            usuarioLogado.setDesempenho(0);
         
     }
 
@@ -167,7 +166,4 @@ public class Sessao implements Desempenho {
         return acerto;
     }
 
-    public int getDesempenho() {
-        return desempenho;
-    }
 }

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.cefetmg.servico;
 
 import br.cefetmg.DAO.ForumDAOImpl;
@@ -5,9 +10,13 @@ import br.cefetmg.dominio.Forum;
 import br.cefetmg.dominio.Questao;
 import br.cefetmg.exception.ExcecaoNegocio;
 import br.cefetmg.exception.ExcecaoPersistencia;
+import static org.junit.Assert.fail;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
+/**
+ *
+ * @author GVGX_TECNOLOGIA
+ */
 public class implementacaoForumDAOTest {
 
     private final implementacaoForumDAO instancia;

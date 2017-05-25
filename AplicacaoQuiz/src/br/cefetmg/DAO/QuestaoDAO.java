@@ -1,12 +1,13 @@
 package br.cefetmg.DAO;
 
 import br.cefetmg.dominio.Questao;
+import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.List;
 
 public interface QuestaoDAO {
-    public void inserir(Questao obj);
-    public Questao consultar(long idQuestao);
-    public boolean alterar(long idObjetoAntigo, Questao novoObj);
-    public Questao excluir(long idQuestao);
-    public List<Questao> listar();
+    public void inserir(Questao obj) throws ExcecaoPersistencia;
+    public Questao consultar(Long idQuestao) throws ExcecaoPersistencia;
+    public void alterar(Questao novoObj) throws ExcecaoPersistencia;
+    public Questao excluir(Long idQuestao) throws ExcecaoPersistencia;
+    public List<Questao> listar() throws ExcecaoPersistencia;
 }

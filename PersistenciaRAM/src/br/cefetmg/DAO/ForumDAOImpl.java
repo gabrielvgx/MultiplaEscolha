@@ -5,7 +5,7 @@ import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.HashMap;
 
 public class ForumDAOImpl implements ForumDAO {
-
+    
     private static ForumDAOImpl forumDAO = null;
     private static final HashMap<Long, Forum> objeto = new HashMap<>();
 

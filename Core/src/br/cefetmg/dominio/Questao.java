@@ -8,8 +8,8 @@ import java.util.Map;
 
 public class Questao {
 
-    private static long idQuestao = 0;
-    private ArrayList<String> enunciado;
+    private Long idQuestao;
+    private String enunciado;
     private Map<String, Boolean> alternativas;
     private ArrayList<String> pathImagens;
     private String tipoQuestao;
@@ -27,10 +27,9 @@ public class Questao {
         niveisDificuldade.put(2, "moderado");
         niveisDificuldade.put(3, "dificil");
         niveisDificuldade.put(4, "desafio");
-        idQuestao++;
     }
     
-    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, String dominio, String modulo, Map<Integer,String> niveisDificuldade) throws ExcecaoPersistencia {
+    public Questao(String enunciado, Map<String, Boolean> alternativas, String tipoQuestao, String dominio, String modulo, Map<Integer,String> niveisDificuldade) throws ExcecaoPersistencia {
 
         this.enunciado = enunciado;
         this.alternativas = alternativas;
@@ -55,7 +54,7 @@ public class Questao {
         }
     }
     
-    public Questao(ArrayList<String> enunciado, Map<String, Boolean> alternativas, String tipoQuestao, String dominio, String modulo, Map<Integer,String> niveisDificuldade, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
+    public Questao(String enunciado, Map<String, Boolean> alternativas, String tipoQuestao, String dominio, String modulo, Map<Integer,String> niveisDificuldade, ArrayList<String> pathImagens) throws ExcecaoPersistencia {
 
         this.enunciado = enunciado;
         this.alternativas = alternativas;
@@ -101,15 +100,15 @@ public class Questao {
 
     }
 
-    public long getIdQuestao() {
+    public Long getIdQuestao() {
         return idQuestao;
     }
 
-    public ArrayList<String> getEnunciado() {
+    public String getEnunciado() {
         return enunciado;
     }
 
-    public void setEnunciado(ArrayList<String> enunciado) {
+    public void setEnunciado(String enunciado) {
         this.enunciado = enunciado;
     }
 
@@ -138,8 +137,8 @@ public class Questao {
         this.tipoQuestao = tipoQuestao;
     }
 
-    public static void setIdQuestao(long idQuestao) {
-        Questao.idQuestao = idQuestao;
+    public void setIdQuestao(Long idQuestao) {
+        this.idQuestao = idQuestao;
     }
 
     public boolean isVisibilidade() {

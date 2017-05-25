@@ -2,6 +2,7 @@ package br.cefetmg.servico;
 
 import br.cefetmg.DAO.QuestaoDAO;
 import br.cefetmg.dominio.Questao;
+import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.List;
 
 public class implementacaoQuestaoDAO implements QuestaoDAO{
@@ -11,27 +12,27 @@ public class implementacaoQuestaoDAO implements QuestaoDAO{
         this.dao = dao;
     }
     @Override
-    public void inserir(Questao obj) {
+    public void inserir(Questao obj) throws ExcecaoPersistencia {
         dao.inserir(obj);
     }
 
     @Override
-    public Questao consultar(long id) {
+    public Questao consultar(Long id) throws ExcecaoPersistencia {
         return dao.consultar(id);
     }
 
     @Override
-    public boolean alterar(long idObjetoAntigo, Questao novoObj) {
-        return dao.alterar(idObjetoAntigo, novoObj);
+    public void alterar(Questao novoObj) throws ExcecaoPersistencia {
+        dao.alterar(novoObj);
     }
 
     @Override
-    public Questao excluir(long id) {
+    public Questao excluir(Long id) throws ExcecaoPersistencia {
         return dao.excluir(id);
     }
 
     @Override
-    public List<Questao> listar() {
+    public List<Questao> listar() throws ExcecaoPersistencia {
         return dao.listar();
     }
 

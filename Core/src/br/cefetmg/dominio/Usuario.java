@@ -7,6 +7,15 @@ public class Usuario extends Pessoa {
     private long idUsuario;
     private String login;
     private String senha;
+    private double desempenho;
+
+    public double getDesempenho() {
+        return desempenho;
+    }
+
+    public void setDesempenho(double desempenho) {
+        this.desempenho = desempenho;
+    }
 
     public Usuario(){}
     public Usuario(long id, String primeiroNome, String ultimoNome, int idade, char sexo, String email, String telefone, String login, String senha) {
