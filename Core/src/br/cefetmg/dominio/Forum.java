@@ -1,11 +1,14 @@
 package br.cefetmg.dominio;
 
 public class Forum {
+
     private static long idComentario;
     private String comentario;
     private static long like;
- 
-    public Forum() {}
+
+    public Forum() {
+        idComentario++;
+    }
 
     public Forum(String comentario) {
         this.comentario = comentario;
@@ -22,9 +25,9 @@ public class Forum {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
-    } 
-    
-    public void incrementaLike(){
-        like ++;
+    }
+
+    public void incrementaLike() {
+        like++;
     }
 }
