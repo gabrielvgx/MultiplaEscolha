@@ -1,12 +1,13 @@
 package br.cefetmg.dominio;
 
+import br.cefetmg.dominio.Desempenho;
 import br.cefetmg.exception.ExcecaoNegocio;
 import br.cefetmg.exception.ExcecaoPersistencia;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Sessao {
+public class Sessao implements Desempenho {
 
     private Usuario usuarioLogado;
     private Map<Questao, String> questoesRespondidas;
@@ -16,13 +17,12 @@ public class Sessao {
     private int numeroAcertosFechada;
     private int limiteQuestoes;
     private int totalRespostas;
-
-    public Sessao() {
-        questoesRespondidas = new LinkedHashMap<>();
-    }
+    private int acerto;
+    private int desempenho;
 
     public Sessao(Usuario usuarioLogado) {
-        this();
+        acerto = numeroAcertosVF + numeroAcertosFechada;
+        questoesRespondidas = new LinkedHashMap<>();
         this.usuarioLogado = usuarioLogado;
         if (usuarioLogado instanceof Anonimo) {
             limiteQuestoes = 10;
@@ -31,7 +31,7 @@ public class Sessao {
 
     private void contabilizaQuestaoRespondida(Questao questaoRespondida, String resposta) {
         questoesRespondidas.put(questaoRespondida, resposta);
-       
+
         switch (questaoRespondida.getTipoQuestao()) {
             case "VF":
                 char[] gabaritoSeparado = resposta.toCharArray();
@@ -70,7 +70,7 @@ public class Sessao {
         if (questao.getTipoQuestao() == null) {
             throw new ExcecaoPersistencia("Tipo da Questao não pode ser null");
         }
-         totalRespostas++;
+        totalRespostas++;
         switch (questao.getTipoQuestao()) {
             case "VF":
                 char[] respostaVF = resposta.toCharArray();
@@ -83,17 +83,16 @@ public class Sessao {
             case "aberta":
                 break;
             case "fechada":
-                if(questao.getAlternativas() == null){
+                if (questao.getAlternativas() == null) {
                     throw new ExcecaoPersistencia("Não há alternativas");
                 }
-                if(!questao.getAlternativas().containsKey(resposta)){
+                if (!questao.getAlternativas().containsKey(resposta)) {
                     throw new ExcecaoPersistencia("A resposta não é uma das alternativas");
                 }
                 break;
             default:
                 throw new ExcecaoPersistencia("Tipo de Questao Invalido");
         }
-        System.out.println("PQP");
         if (usuarioLogado instanceof Anonimo) {
             if (totalRespostas <= limiteQuestoes) {
                 contabilizaQuestaoRespondida(questao, resposta);
@@ -105,6 +104,22 @@ public class Sessao {
             contabilizaQuestaoRespondida(questao, resposta);
 
         }
+    }
+
+    public void geraDesempenho() throws ExcecaoNegocio {
+
+        if (usuarioLogado instanceof Anonimo)
+            throw new ExcecaoNegocio ("Usuario nao possui permissao para gerar "
+                    + "desempenho");
+        
+        if (totalRespostas == 0 && acerto > 0) {
+            throw new ExcecaoNegocio("O desempenho depende do numero de "
+                    + "tentativas e nao ha como ter acerto sem tentativas");
+        }
+        if (totalRespostas > 0) {
+            desempenho = (acerto * 100) / totalRespostas;
+        }
+        
     }
 
     public Usuario getUsuarioLogado() {
@@ -127,32 +142,35 @@ public class Sessao {
         return numeroRespondidasVF;
     }
 
-    public void setNumeroRespondidasVF(int numeroRespondidasVF) {
-        this.numeroRespondidasVF = numeroRespondidasVF;
-    }
 
     public int getNumeroRespondidasFechada() {
         return numeroRespondidasFechada;
     }
 
-    public void setNumeroRespondidasFechada(int numeroRespondidasFechada) {
-        this.numeroRespondidasFechada = numeroRespondidasFechada;
-    }
 
     public int getNumeroAcertosVF() {
         return numeroAcertosVF;
     }
 
-    public void setNumeroAcertosVF(int numeroAcertosVF) {
-        this.numeroAcertosVF = numeroAcertosVF;
-    }
 
     public int getNumeroAcertosFechada() {
         return numeroAcertosFechada;
     }
 
-    public void setNumeroAcertosFechada(int numeroAcertosFechada) {
-        this.numeroAcertosFechada = numeroAcertosFechada;
+
+    public int getLimiteQuestoes() {
+        return limiteQuestoes;
     }
 
+    public int getTotalRespostas() {
+        return totalRespostas;
+    }
+
+    public int getAcerto() {
+        return acerto;
+    }
+
+    public int getDesempenho() {
+        return desempenho;
+    }
 }
