@@ -15,13 +15,14 @@ public class implementacaoForumDAO implements PersistenciaForumDAO {
     @Override
     public void inserirComentario(long idQuestao, String comentario) throws ExcecaoNegocio, ExcecaoPersistencia {
 
-        //Como comparar idQuestao com null para lançar a exceção?
-        
         if (comentario == null) {
-            throw new ExcecaoNegocio("Nenhum comentário foi inserido.");
+            throw new ExcecaoNegocio("O comentário não pode ser nulo");
         }
 
         forumDAO.inserir(idQuestao, comentario);
+
+        System.out.println(idQuestao);
+        System.out.println(comentario);
     }
 
     @Override
@@ -40,7 +41,7 @@ public class implementacaoForumDAO implements PersistenciaForumDAO {
     }
 
     @Override
-    public void curtirComentario(long idQuestao, long idComentario) throws ExcecaoNegocio, ExcecaoPersistencia {
+    public void curtirComentario(long idQuestao, long idComentario) throws ExcecaoPersistencia {
         forumDAO.curtir(idQuestao, idComentario);
     }
 
