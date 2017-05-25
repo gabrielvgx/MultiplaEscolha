@@ -3,8 +3,6 @@ package br.cefetmg.servico;
 import br.cefetmg.DAO.DesempenhoDAO;
 import br.cefetmg.exception.ExcecaoNegocio;
 import br.cefetmg.exception.ExcecaoPersistencia;
-import java.util.ArrayList;
-import java.util.Map;
 
 public class implementacaoDesempenhoDAO implements PersistenciaDesempenhoDAO {
 
@@ -23,7 +21,7 @@ public class implementacaoDesempenhoDAO implements PersistenciaDesempenhoDAO {
     }
 
     @Override
-    public Map<Long, ArrayList> consultarDesempenho() throws ExcecaoPersistencia {
-        return desempenhoDAO.consultar();  //informa a porcentagem de acertos.
+    public double consultarDesempenho(long idDesempenho) throws ExcecaoPersistencia {
+        return desempenhoDAO.consultar(idDesempenho);  //informa a porcentagem de acertos.
     }
 }
